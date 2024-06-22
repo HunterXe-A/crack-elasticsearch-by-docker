@@ -15,6 +15,6 @@ docker build --no-cache -f Dockerfile \
   --build-arg VERSION="${version}" \
   --tag ${service_name}:${version} .
 
-docker run -it --rm \
+docker run -t --rm \
   -v $(pwd)/output:/crack/output \
   ${service_name}:${version}
