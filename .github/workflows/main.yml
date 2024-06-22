@@ -1,0 +1,40 @@
+name: crack-elasticsearch-by-docker
+
+on: push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out git repository
+      uses: actions/checkout@v2
+      
+    - name: install
+      run: sudo apt-get install docker.io -y
+      
+    - name: Build and zip
+      run: |
+        git clone https://github.com/HunterXe-A/crack-elasticsearch-by-docker
+        cd crack-elasticsearch-by-docker
+        version=8.14.1
+        bash crack.sh $version
+        cd ..
+        
+    - name: upload artifacts
+      uses: actions/upload-artifact@v3 
+      with:
+        name: stm12
+        path: crack-elasticsearch-by-docker/output/x-pack-core-8.14.1.crack.jar
+          
+    - name: Create and Upload Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        tag_name: test
+        name: Release test
+        body: TODO New Release.
+        draft: false
+        prerelease: false
+        files: stm12
