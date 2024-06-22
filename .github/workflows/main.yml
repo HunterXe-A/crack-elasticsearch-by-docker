@@ -23,7 +23,7 @@ jobs:
         cd ..
         
     - name: upload artifacts
-      uses: actions/upload-artifact@v3 
+      uses: actions/upload-artifact@latest
       with:
         name: stm12
         path: crack-elasticsearch-by-docker/output/x-pack-core-8.14.1.crack.jar
